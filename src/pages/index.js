@@ -1,7 +1,10 @@
 import Header from "@/components/Header";
+import Navigation from "@/components/Navigation";
 import Head from "next/head";
+import { useWindowSize } from "usehooks-ts";
 
-export default function Home() {
+const Home = () => {
+  const { width } = useWindowSize();
   return (
     <>
       <Head>
@@ -12,7 +15,10 @@ export default function Home() {
       </Head>
       <main>
         <Header />
+        {width > 767 && <Navigation />}
       </main>
     </>
   );
-}
+};
+
+export default Home;
