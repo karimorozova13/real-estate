@@ -14,7 +14,7 @@ import SideBar from "./SideBar";
 import { useWindowSize } from "usehooks-ts";
 
 const HeaderWrap = styled.div`
-  padding: 30px;
+  padding: 15px 30px;
   background-color: #42474c;
   display: flex;
   gap: 20px;

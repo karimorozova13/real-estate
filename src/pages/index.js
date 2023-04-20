@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
+import Hero from "@/components/Hero";
 import Navigation from "@/components/Navigation";
+import ServicesSection from "@/components/ServicesSection";
 import Head from "next/head";
 import { useWindowSize } from "usehooks-ts";
 
@@ -16,6 +18,8 @@ const Home = () => {
       <main>
         <Header />
         {width > 767 && <Navigation />}
+        <Hero />
+        <ServicesSection />
       </main>
     </>
   );
