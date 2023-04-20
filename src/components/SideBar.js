@@ -1,6 +1,14 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+const BackDrop = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  right: 0;
+`;
 const Menu = styled.div`
   position: absolute;
   top: 0;
@@ -49,46 +57,62 @@ const SubMenu = styled.div`
   }
 `;
 
-const SideBar = () => {
+const SideBar = ({ closeBar }) => {
   const [isSubMenu, setIsSubMenu] = useState(false);
+  const closeSideBar = (e) => {
+    if (e.key === "Escape") {
+      closeBar();
+    }
+  };
+  const closeOnClickOutside = (e) => {
+    if (e.target === e.currentTarget) closeBar();
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", closeSideBar);
+    return () => {
+      document.removeEventListener("keydown", closeSideBar);
+    };
+  }, []);
 
   return (
-    <Menu>
-      <NavLink>
-        <Link href={"/home"}>{"Home"}</Link>
-      </NavLink>
-      <NavLink>
-        <Link href={"/about"}>{"About us"}</Link>
-      </NavLink>
-      <NavLink
-        isSubMenu={isSubMenu}
-        onClick={() => {
-          console.log(isSubMenu);
-          setIsSubMenu(!isSubMenu);
-        }}
-      >
-        <p>{"Services"}</p>
-        <span />
-      </NavLink>
-      {isSubMenu && (
-        <SubMenu>
-          <Link href={"/services"}>{"Buying a Home"}</Link>
-          <Link href={"/services"}>{"Refinancing"}</Link>
-          <Link href={"/services"}>{"Credit Service"}</Link>
-          <Link href={"/services"}>{"Optimize Deals"}</Link>
-          <Link href={"/services"}>{"Business Studies"}</Link>
-          <Link href={"/services"}>{"Market Research"}</Link>
-          <Link href={"/services"}>{"Business Growth"}</Link>
-          <Link href={"/services"}>{"Stimulate Innovation"}</Link>
-        </SubMenu>
-      )}
-      <NavLink>
-        <Link href={"/news"}>{"News"}</Link>
-      </NavLink>
-      <NavLink>
-        <Link href={"/contact"}>{"Contact"}</Link>
-      </NavLink>
-    </Menu>
+    <BackDrop onClick={closeOnClickOutside}>
+      <Menu>
+        <NavLink>
+          <Link href={"/home"}>{"Home"}</Link>
+        </NavLink>
+        <NavLink>
+          <Link href={"/about"}>{"About us"}</Link>
+        </NavLink>
+        <NavLink
+          isSubMenu={isSubMenu}
+          onClick={() => {
+            console.log(isSubMenu);
+            setIsSubMenu(!isSubMenu);
+          }}
+        >
+          <p>{"Services"}</p>
+          <span />
+        </NavLink>
+        {isSubMenu && (
+          <SubMenu>
+            <Link href={"/services"}>{"Buying a Home"}</Link>
+            <Link href={"/services"}>{"Refinancing"}</Link>
+            <Link href={"/services"}>{"Credit Service"}</Link>
+            <Link href={"/services"}>{"Optimize Deals"}</Link>
+            <Link href={"/services"}>{"Business Studies"}</Link>
+            <Link href={"/services"}>{"Market Research"}</Link>
+            <Link href={"/services"}>{"Business Growth"}</Link>
+            <Link href={"/services"}>{"Stimulate Innovation"}</Link>
+          </SubMenu>
+        )}
+        <NavLink>
+          <Link href={"/news"}>{"News"}</Link>
+        </NavLink>
+        <NavLink>
+          <Link href={"/contact"}>{"Contact"}</Link>
+        </NavLink>
+      </Menu>
+    </BackDrop>
   );
 };
 

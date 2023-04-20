@@ -117,7 +117,7 @@ const Burger = styled.div`
   position: fixed;
   top: 10px;
   right: 10px;
-  z-index: 1;
+  z-index: 2;
   span {
     width: 80%;
     height: 4px;
@@ -223,7 +223,7 @@ const Header = () => {
         </SocialIcons>
       </LinksWrap>
 
-      {isMenu && <SideBar />}
+      {isMenu && <SideBar closeBar={() => setIsMenu(false)} />}
     </HeaderWrap>
   );
 };
